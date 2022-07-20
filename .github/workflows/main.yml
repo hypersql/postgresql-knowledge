@@ -20,6 +20,8 @@ jobs:
       - name: Build and Deploy Gatsby
         run: |
           yarn install
-          yarn gatsby build --prefix-paths 
+          yarn gatsby build --prefix-paths
+          git config user.name = ${{ secrets.ADMIN_USERNAME }}
+          git config user.email = ${{ secrets.ADMIN_USER_EMAIL }}
           yarn gh-pages -r http://github.com/hypersql/postgresql-knowledge \
                         -d public -b gh-pages
