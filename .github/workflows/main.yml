@@ -1,0 +1,20 @@
+name: deploy-github-pages
+
+on: repository_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: hypersql/postgresql-knowledge-src
+          token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Build and Deploy Gatsby
+        run: |
+          yarn install
+          yarn run deploy
