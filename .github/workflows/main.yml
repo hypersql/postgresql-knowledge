@@ -21,4 +21,5 @@ jobs:
         run: |
           yarn install
           yarn gatsby build --prefix-paths 
-          yarn gh-pages -r ${{ github.repository }} -d public -b gh-pages
+          yarn gh-pages -r http://github.com/hypersql/postgresql-knowledge \
+                        -d public -b gh-pages
