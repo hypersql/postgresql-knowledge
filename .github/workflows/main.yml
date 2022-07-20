@@ -17,10 +17,17 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
 
-      - name: Build and Deploy Gatsby
+      - name: Build Gatsby
         run: |
           yarn install
           yarn gatsby build --prefix-paths
+  
+      - uses: webfactory/ssh-agent@v.0.5.4
+        with:
+          ssh-private-key: ${{ secrets.ADMIN_SSH_KEY }}
+      
+      - name: Deploy Gatsby
+        run: |
           git config user.name = ${{ secrets.ADMIN_USERNAME }}
           git config user.email = ${{ secrets.ADMIN_USER_EMAIL }}
           git remote set-url origin git@github.com:hypersql/postgresql-knowledge.git
