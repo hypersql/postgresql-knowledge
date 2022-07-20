@@ -1,1 +1,0 @@
-# postgresql-knowledge-public
