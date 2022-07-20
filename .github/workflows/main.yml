@@ -22,7 +22,7 @@ jobs:
           yarn install
           yarn gatsby build --prefix-paths
   
-      - uses: webfactory/ssh-agent@v.0.5.4
+      - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.ADMIN_SSH_KEY }}
       
