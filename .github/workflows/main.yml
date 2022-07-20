@@ -1,6 +1,9 @@
 name: deploy-github-pages
 
-on: repository_dispatch
+on: 
+  repository_dispatch:
+    types:
+      - deploy-github-page
 
 jobs:
   deploy:
