@@ -17,4 +17,5 @@ jobs:
       - name: Build and Deploy Gatsby
         run: |
           yarn install
-          yarn run deploy
+          yarn gatsby build --prefix-paths 
+          yarn gh-pages -r ${{ github.repository }} -d public -b gh-pages
