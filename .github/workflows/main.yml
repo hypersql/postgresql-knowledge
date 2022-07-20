@@ -9,11 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.ADMIN_SSH_KEY }}
+      
       - uses: actions/checkout@v2
         with:
           repository: hypersql/postgresql-knowledge-src
-          token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
-
+          ssh-key: ${{ secrets.ADMIN_SSH_KEY }}
+          
       - name: Setup Node
         uses: actions/setup-node@v3
 
@@ -22,14 +26,8 @@ jobs:
           yarn install
           yarn gatsby build --prefix-paths
   
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.ADMIN_SSH_KEY }}
-      
       - name: Deploy Gatsby
         run: |
           git config user.name = ${{ secrets.ADMIN_USERNAME }}
           git config user.email = ${{ secrets.ADMIN_USER_EMAIL }}
-          git remote set-url origin git@github.com:hypersql/postgresql-knowledge.git
-          yarn gh-pages -r http://github.com/hypersql/postgresql-knowledge \
-                        -d public -b gh-pages
+          yarn gh-pages -r http://github.com/hypersql/postgresql-knowledge -d public -b gh-pages
